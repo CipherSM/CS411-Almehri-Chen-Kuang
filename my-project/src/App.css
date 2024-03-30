@@ -1,42 +1,56 @@
+body {
+    font-family: "Poppins", sans-serif;
+    margin: 0; /* Remove default margin */
+    background-color: pink; /* Or any other color you prefer */
+}
+
+.dashboard {
+    display: flex;
+    margin: 10px;
+}
+
+.hello-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+.top-stories {
+    flex: 3;
+    padding: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.grid-item {
+    padding: 10px;
+    background-color: #e0e0e0;
+    border: 1px solid #d0d0d0;
+    text-align: center;
+}
+
+.cursor {
+    background-color: #111;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000; /* Ensure cursor is above other elements */
+}
+
+/* No longer needed as we set the font globally on the body
+.poppins {
+    font-family: "Poppins", sans-serif;
+}
+*/
+
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+    cursor: none; /* Consider whether you want to disable the default cursor for the entire app */
 }

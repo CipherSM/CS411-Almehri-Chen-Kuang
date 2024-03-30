@@ -1,36 +1,35 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import Lenis from "@studio-freight/lenis"; // Package for smooth scroll
-import { motion } from "framer-motion"; // Package for animations
+import { AnimatePresence } from "framer-motion";
+import useLenis from "./hooks/useLenis";
+import useWelcomeScreen from "./hooks/useWelcomeScreen";
+import useCursor from "./hooks/useCursor";
+import CustomCursor from "./components/CustomCursor";
+import WelcomeScreen from "./components/WelcomeScreen";
+import HelloSection from "./components/HelloSection";
+import TopStories from "./components/TopStories";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const showWelcome = useWelcomeScreen();
+  const { cursorVariant, handleCursorEnter, handleCursorLeave } = useCursor();
+
+  useLenis();
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app-container">
+      <AnimatePresence>
+        {showWelcome && <WelcomeScreen onExit={() => null} />}
+      </AnimatePresence>
+      <div
+        className="dashboard"
+        style={{ opacity: showWelcome ? 0 : 1 }}
+        onMouseEnter={handleCursorEnter}
+        onMouseLeave={handleCursorLeave}
+      >
+        <HelloSection />
+        <TopStories />
       </div>
-      <h1>CS411 Project</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <CustomCursor cursorVariant={cursorVariant} />
+    </div>
   );
 }
 
