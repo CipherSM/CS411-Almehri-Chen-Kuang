@@ -1,15 +1,21 @@
 import requests
 import datetime
+from secret import DIFFBOT_API_TOKEN
 
-def get_week_to_today(today_date):
-    # Calculate the start of the week (Monday)
-    start_of_week = today_date - datetime.timedelta(days=today_date.weekday())
+def query_dql(subject):
+    today = datetime.date.today()
+    start_of_week = today - datetime.timedelta(days=today.weekday())
 
     # Generate dates from the start of the week to today
-    week_to_today = [start_of_week + datetime.timedelta(days=i) for i in range((today_date - start_of_week).days + 1)]
+    week = [start_of_week + datetime.timedelta(days=i) for i in range((today - start_of_week).days + 1)]
+    
+    querystring = {
+        'token': DIFFBOT_API_TOKEN,
+        'query': f'type:Article date<"{week[-1]}" date>"{week[0]}" title:"{subject}" language:"en"',
+        'format': "json", 
+        'size': 1        
+    }
+    return requests.get('https://kg.diffbot.com/kg/v3/dql', params=querystring)
 
-    return week_to_today
-
-week = get_week_to_today(datetime.date.today())
-print(str(week[0]))
-#type:Article date:week[0] date:week[1]...[6]
+response = query_dql('bitcoin')
+print(response.headers)
