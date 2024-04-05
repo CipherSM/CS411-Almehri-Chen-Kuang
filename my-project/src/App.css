@@ -1,40 +1,81 @@
 body {
     font-family: "Poppins", sans-serif;
-    margin: 0; /* Remove default margin */
-    background-color: pink; /* Or any other color you prefer */
+    margin: 0;
+    color: #333;
+    --background-color: #191a1a;
+    background-color: var(--background-color);
+    background-image: linear-gradient(
+            0deg,
+            transparent 24%,
+            rgba(114, 114, 114, 0.3) 25%,
+            rgba(114, 114, 114, 0.3) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(114, 114, 114, 0.3) 75%,
+            rgba(114, 114, 114, 0.3) 76%,
+            transparent 77%,
+            transparent
+        ),
+        linear-gradient(
+            90deg,
+            transparent 24%,
+            rgba(114, 114, 114, 0.3) 25%,
+            rgba(114, 114, 114, 0.3) 26%,
+            transparent 27%,
+            transparent 74%,
+            rgba(114, 114, 114, 0.3) 75%,
+            rgba(114, 114, 114, 0.3) 76%,
+            transparent 77%,
+            transparent
+        );
+    background-size: 55px 55px;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .dashboard {
     display: flex;
     margin: 10px;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}
+
+.hello-section,
+.top-stories {
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 10px;
 }
 
 .hello-section {
     flex: 1;
-    padding: 20px;
-    background-color: #f0f0f0;
 }
 
 .top-stories {
     flex: 3;
-    padding: 20px;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    grid-gap: 20px;
 }
 
 .grid-item {
-    padding: 10px;
-    background-color: #e0e0e0;
-    border: 1px solid #d0d0d0;
+    padding: 20px;
+    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
     text-align: center;
+    border-radius: 8px;
 }
 
 .cursor {
-    background-color: #111;
+    background-color: #f9f9f9; /* Light color for contrast */
     height: 32px;
     width: 32px;
     border-radius: 50%;
@@ -42,15 +83,10 @@ body {
     top: 0;
     left: 0;
     pointer-events: none;
-    z-index: 10000; /* Ensure cursor is above other elements */
+    z-index: 10000;
+    transition: background-color 0.3s; /* Smooth color transition */
 }
-
-/* No longer needed as we set the font globally on the body
-.poppins {
-    font-family: "Poppins", sans-serif;
-}
-*/
 
 #root {
-    cursor: none; /* Consider whether you want to disable the default cursor for the entire app */
+    cursor: none;
 }

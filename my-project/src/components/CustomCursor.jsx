@@ -1,4 +1,3 @@
-// CustomCursor.jsx
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -22,13 +21,14 @@ const CustomCursor = ({ cursorVariant }) => {
       x: mousePosition.x - 16, // Center the cursor
       y: mousePosition.y - 16,
       scale: 1,
+      backgroundColor: "#f9f9f9", // Light color for default cursor
       opacity: 1,
     },
     hover: {
       x: mousePosition.x - 16,
       y: mousePosition.y - 16,
-      scale: 2,
-      backgroundColor: "pink",
+      scale: 1.5,
+      backgroundColor: "#191a1a", // Dark color for hover, matching the body
       opacity: 1,
     },
   };
@@ -44,7 +44,6 @@ const CustomCursor = ({ cursorVariant }) => {
         width: "32px",
         height: "32px",
         borderRadius: "50%",
-        backgroundColor: "black",
         mixBlendMode: "difference",
         pointerEvents: "none",
         zIndex: 9999,
