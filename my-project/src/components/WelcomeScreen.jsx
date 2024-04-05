@@ -1,3 +1,5 @@
+// WelcomeScreen.jsx
+
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
@@ -17,6 +19,7 @@ function WelcomeScreen({ isVisible, onExit }) {
       initial={{ y: 0 }}
       exit={{ y: "-100vh" }}
       transition={{ duration: 2, ease: "easeInOut" }}
+      onAnimationComplete={onExit}
       style={{
         position: "fixed",
         top: 0,

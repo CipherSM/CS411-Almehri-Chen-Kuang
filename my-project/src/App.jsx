@@ -10,10 +10,14 @@ import TopStories from "./components/TopStories";
 
 function App() {
   const showWelcome = useWelcomeScreen();
+  const [showMainContent, setShowMainContent] = useState(false);
   const [cursorVariant, setCursorVariant] = useState("default");
 
   useLenis();
-
+  const handleWelcomeExit = () => {
+    // Triggered when WelcomeScreen has finished its exit animation
+    setShowMainContent(true);
+  };
   useEffect(() => {
     const handleMouseOver = (event) => {
       // Change cursor when hovering over text elements
@@ -43,9 +47,9 @@ function App() {
   return (
     <div className="app-container">
       <AnimatePresence>
-        {showWelcome && <WelcomeScreen onExit={() => null} />}
+        {showWelcome && <WelcomeScreen onExit={handleWelcomeExit} />}
       </AnimatePresence>
-      {!showWelcome && (
+      {showMainContent && (
         <>
           <HelloSection />
           <TopStories />

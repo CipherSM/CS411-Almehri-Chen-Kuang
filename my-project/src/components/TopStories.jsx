@@ -1,3 +1,7 @@
+// Topstories.jsx
+
+import { motion } from "framer-motion";
+
 function TopStories() {
   // Dummy data for the stories
   const stories = new Array(9).fill(null).map((_, index) => ({
@@ -7,7 +11,10 @@ function TopStories() {
   }));
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut", delay: 0.4 }}
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(3, 1fr)",
@@ -18,7 +25,10 @@ function TopStories() {
       }}
     >
       {stories.map((story) => (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
           key={story.id}
           style={{
             backgroundColor: "#ffffff", // Light background for the story card
@@ -35,9 +45,9 @@ function TopStories() {
         >
           <h3>{story.title}</h3>
           <p>{story.content}</p>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }
 

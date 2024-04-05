@@ -1,3 +1,6 @@
+// HelloSection.jsx
+
+import { motion, useAnimation } from "framer-motion";
 import React from "react";
 
 function HelloSection() {
@@ -9,7 +12,10 @@ function HelloSection() {
   });
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
       style={{
         padding: "20px",
         margin: "20px 20px 20px 20px", // Add some space on all sides
@@ -27,7 +33,7 @@ function HelloSection() {
     >
       <h1>Hello, user!</h1>
       <p>Today's date is {currentDate}.</p>
-    </div>
+    </motion.div>
   );
 }
 
