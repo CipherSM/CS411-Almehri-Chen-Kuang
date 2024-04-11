@@ -5,20 +5,31 @@ from secret import DIFFBOT_API_TOKEN
 
 
 def query_dql(subject, token=DIFFBOT_API_TOKEN):
+    '''
+        Parameters: Subject of query, optional token
+        Return:
+        API call for articles on subject
+    '''
     today = datetime.date.today()
-    start_of_week = today - datetime.timedelta(days=today.weekday())
 
     # Generate dates from the start of the week to today
-    week = [start_of_week + datetime.timedelta(days=i) for i in range((today - start_of_week).days + 1)]
-    
+    week = [today - datetime.timedelta(days=i) for i in range(7)]
+
     querystring = {
         'token': token,
-        'query': f'type:Article date<"{week[-1]}" date>"{week[0]}" title:"{subject}" language:"en" sortBy:date',
+        'query': f'type:Article date<"{week[0]}" date>"{week[-1]}" title:"{subject}" language:"en" sortBy:date',
         'format': "json", 
         'size': 2       
     }
-    return requests.get('https://kg.diffbot.com/kg/v3/dql', params=querystring)
-
+    response = requests.get('https://kg.diffbot.com/kg/v3/dql', params=querystring)
+    data = response.json()
+    articles = {}
+    for i in range(len(data.get('data'))):
+        article = data.get('data')[i].get('entity')
+        articles[article.get('pageUrl')] = {'title' : article.get('title'), 'text' : article.get('text'), 'classification' : article.get('categories')}
+    return articles
+    
+'''
 def fetch_article(url, token=DIFFBOT_API_TOKEN):
     """
         Parameters: url of article, optional token
@@ -35,7 +46,7 @@ def fetch_article(url, token=DIFFBOT_API_TOKEN):
     headers = {"accept": "application/json"}
 
     response = requests.get(request_url, headers=headers)
-
+ 
     json_content = response.json()
 
     title = json_content['objects'][0]['title']
@@ -54,21 +65,6 @@ def fetch_article(url, token=DIFFBOT_API_TOKEN):
 
     text = json_content['objects'][0]['text']
     return url, title, classification, text
-
+'''
 response = query_dql('bitcoin')
-response = response.json()
-
-articles = {}
-for i in range(len(response.get('data'))):
-    article = response.get('data')[i].get('entity')
-    if article.get('categories'):
-        articles[article.get('pageUrl')] = {'title' : article.get('title'), 'summary': article.get('summary'), 'sentiment' : article.get('sentiment'), 'categories' : article.get('categories')}
-    else:
-        articles[article.get('pageUrl')] = {'title' : article.get('title'), 'summary': article.get('summary'), 'sentiment' : article.get('sentiment'), 'tags' : article.get('tags')}
-
-print(response[0])
-'''
-for i, j in enumerate(articles):
-    url, title, classification, text = fetch_article(j)
-    print(text)
-'''
+print(response)
