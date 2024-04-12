@@ -87,6 +87,36 @@ body {
     transition: background-color 0.3s; /* Smooth color transition */
 }
 
+/* App.css */
+
+.top-stories-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.story-card {
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 150px;
+}
+
+.story-card h3 {
+    /* Add styles for story titles if necessary */
+}
+
+.story-card p {
+    /* Add styles for story content if necessary */
+}
+
 #root {
     cursor: none;
 }
