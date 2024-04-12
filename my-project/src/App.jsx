@@ -1,36 +1,62 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Lenis from "@studio-freight/lenis"; // Package for smooth scroll
-import { motion } from "framer-motion"; // Package for animations
+import { AnimatePresence } from "framer-motion";
+import useLenis from "./hooks/useLenis";
+import useWelcomeScreen from "./hooks/useWelcomeScreen";
+import CustomCursor from "./components/CustomCursor";
+import WelcomeScreen from "./components/WelcomeScreen";
+import HelloSection from "./components/HelloSection";
+import TopStories from "./components/TopStories";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const showWelcome = useWelcomeScreen();
+  const [showMainContent, setShowMainContent] = useState(false);
+  const [cursorVariant, setCursorVariant] = useState("default");
+
+  useLenis();
+  const handleWelcomeExit = () => {
+    // Triggered when WelcomeScreen has finished its exit animation
+    setShowMainContent(true);
+  };
+  useEffect(() => {
+    const handleMouseOver = (event) => {
+      // Change cursor when hovering over text elements
+      if (
+        event.target.tagName === "P" ||
+        event.target.tagName === "SPAN" ||
+        event.target.tagName === "H1" ||
+        event.target.tagName === "H2" ||
+        event.target.tagName === "H3" ||
+        event.target.tagName === "H4" ||
+        event.target.tagName === "H5" ||
+        event.target.tagName === "H6"
+      ) {
+        setCursorVariant("hover");
+      } else {
+        setCursorVariant("default");
+      }
+    };
+
+    document.addEventListener("mouseover", handleMouseOver);
+
+    return () => {
+      document.removeEventListener("mouseover", handleMouseOver);
+    };
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>CS411 Project</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="app-container">
+      <AnimatePresence>
+        {showWelcome && <WelcomeScreen onExit={handleWelcomeExit} />}
+      </AnimatePresence>
+      {showMainContent && (
+        <>
+          <HelloSection />
+          <TopStories />
+        </>
+      )}
+      <CustomCursor cursorVariant={cursorVariant} />
+    </div>
   );
 }
 
