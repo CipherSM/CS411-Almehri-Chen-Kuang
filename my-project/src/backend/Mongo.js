@@ -13,7 +13,7 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("We're connected to the database.");
   });
-const data = new mongoose.Schema({
+const schema = new mongoose.Schema({
   name:{
     type:String,
     required:true
@@ -25,6 +25,12 @@ const data = new mongoose.Schema({
   password:{
     type:String,
     required:true
-  }
-  
+  },
 })
+const dataModel = new mongoose.model('LoginData', schema)
+const data={
+  name:"ahmed",
+  email: "ahmedalmehri27@gmail.com",
+  password: "passwordtest"
+}
+dataModel.insertMany([data])
