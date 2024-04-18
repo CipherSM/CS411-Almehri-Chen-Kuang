@@ -5,8 +5,9 @@ import useLenis from "./hooks/useLenis";
 import useWelcomeScreen from "./hooks/useWelcomeScreen";
 import CustomCursor from "./components/CustomCursor";
 import WelcomeScreen from "./components/WelcomeScreen";
-import HelloSection from "./components/HelloSection";
+import TimeSection from "./components/TimeSection";
 import TopStories from "./components/TopStories";
+import Weather from "./components/Weather";
 
 function App() {
   const showWelcome = useWelcomeScreen();
@@ -51,8 +52,9 @@ function App() {
       </AnimatePresence>
       {showMainContent && (
         <>
-          <HelloSection />
+          <TimeSection />
           <TopStories />
+          <Weather />
         </>
       )}
       <CustomCursor cursorVariant={cursorVariant} />

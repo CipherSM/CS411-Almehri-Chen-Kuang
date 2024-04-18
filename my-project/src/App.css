@@ -32,7 +32,6 @@ body {
 }
 
 .app-container {
-    display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
@@ -52,7 +51,7 @@ body {
     margin: 10px;
 }
 
-.hello-section {
+.time-section {
     flex: 1;
 }
 
