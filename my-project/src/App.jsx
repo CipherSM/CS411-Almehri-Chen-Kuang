@@ -1,65 +1,61 @@
-import React, { useEffect, useState } from "react";
+// App.jsx
+
+import React, { useContext, useEffect } from "react";
 import "./App.css";
-import { AnimatePresence } from "framer-motion";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
 import useLenis from "./hooks/useLenis";
-import useWelcomeScreen from "./hooks/useWelcomeScreen";
-import CustomCursor from "./components/CustomCursor";
-import WelcomeScreen from "./components/WelcomeScreen";
-import TimeSection from "./components/TimeSection";
-import TopStories from "./components/TopStories";
-import Weather from "./components/Weather";
+import LoginPage from "./components/Login";
+import HomePage from "./components/Home";
 
 function App() {
-  const showWelcome = useWelcomeScreen();
-  const [showMainContent, setShowMainContent] = useState(false);
-  const [cursorVariant, setCursorVariant] = useState("default");
+  const { isAuthenticated } = useContext(AuthContext); // get the isAuthenticated state from the context
 
-  useLenis();
-  const handleWelcomeExit = () => {
-    // Triggered when WelcomeScreen has finished its exit animation
-    setShowMainContent(true);
-  };
-  useEffect(() => {
-    const handleMouseOver = (event) => {
-      // Change cursor when hovering over text elements
-      if (
-        event.target.tagName === "P" ||
-        event.target.tagName === "SPAN" ||
-        event.target.tagName === "H1" ||
-        event.target.tagName === "H2" ||
-        event.target.tagName === "H3" ||
-        event.target.tagName === "H4" ||
-        event.target.tagName === "H5" ||
-        event.target.tagName === "H6"
-      ) {
-        setCursorVariant("hover");
-      } else {
-        setCursorVariant("default");
-      }
-    };
-
-    document.addEventListener("mouseover", handleMouseOver);
-
-    return () => {
-      document.removeEventListener("mouseover", handleMouseOver);
-    };
-  }, []);
+  useLenis(); // this is for smooth scroll
 
   return (
-    <div className="app-container">
-      <AnimatePresence>
-        {showWelcome && <WelcomeScreen onExit={handleWelcomeExit} />}
-      </AnimatePresence>
-      {showMainContent && (
-        <>
-          <TimeSection />
-          <TopStories />
-          <Weather />
-        </>
-      )}
-      <CustomCursor cursorVariant={cursorVariant} />
-    </div>
+    <Router>
+      <NavigationHandler isAuthenticated={isAuthenticated} />
+      <div className="app-container">
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/home" element={<HomePage />} />
+          <Route
+            path="/"
+            element={
+              <Navigate replace to={isAuthenticated ? "/home" : "/login"} /> // if authenticated, redirect to home, else redirect to login
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <Navigate replace to={isAuthenticated ? "/home" : "/login"} />
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
+}
+
+function NavigationHandler({ isAuthenticated }) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
+  }, [isAuthenticated, navigate]);
+
+  return null; // This component does not render anything
 }
 
 export default App;

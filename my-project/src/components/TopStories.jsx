@@ -7,7 +7,7 @@ function TopStories() {
   const [stories, setStories] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/stories")
+    fetch("http://localhost:5178/api/stories") // this is the port and route backend is at
       .then((response) => response.json())
       .then((data) => setStories(data))
       .catch((error) => console.error("Error fetching stories:", error));

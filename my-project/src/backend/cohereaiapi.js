@@ -1,5 +1,6 @@
 import { CohereClient } from "cohere-ai";
-
+import dotenv from "dotenv";
+dotenv.config({ path: "./src/keys.env" });
 const cohere = new CohereClient({
   token: process.env.COHEREAPI_TOKEN, // Ensure the environment variable is properly set
 });

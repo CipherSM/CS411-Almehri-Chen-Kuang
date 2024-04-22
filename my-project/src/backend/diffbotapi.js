@@ -1,6 +1,7 @@
 import axios from "axios";
 import { summarizeText } from "./cohereaiapi.js"; // Importing the summarize function
-
+import dotenv from "dotenv";
+dotenv.config({ path: "./src/keys.env" });
 const apiKey = process.env.DIFFBOTAPI_TOKEN;
 
 async function queryDQL(subject, token = apiKey) {
