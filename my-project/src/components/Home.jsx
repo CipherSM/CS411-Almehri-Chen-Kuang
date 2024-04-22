@@ -9,7 +9,7 @@ import Weather from "./Weather";
 import useWelcomeScreen from "../hooks/useWelcomeScreen";
 
 const Home = () => {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext); // Access user here
   const showWelcome = useWelcomeScreen();
   const [welcomeComplete, setWelcomeComplete] = useState(false);
 
@@ -21,7 +21,7 @@ const Home = () => {
   return (
     <>
       {showWelcome && !welcomeComplete ? (
-        <WelcomeScreen onExit={handleWelcomeExit} />
+        <WelcomeScreen firstName={user?.firstName} onExit={handleWelcomeExit} />
       ) : (
         isAuthenticated && (
           <>

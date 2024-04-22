@@ -3,7 +3,7 @@
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
-function WelcomeScreen({ isVisible, onExit }) {
+function WelcomeScreen({ firstName, onExit }) {
   const textAnimationControl = useAnimation();
 
   useEffect(() => {
@@ -37,7 +37,6 @@ function WelcomeScreen({ isVisible, onExit }) {
         backgroundColor: "#191a1a",
         backgroundSize: "55px 55px",
       }}
-      onAnimationComplete={onExit}
     >
       <motion.div
         initial={{ scale: 1, opacity: 1 }}
@@ -49,7 +48,7 @@ function WelcomeScreen({ isVisible, onExit }) {
         }}
       >
         <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700 }}>
-          Hi user!
+          Hi {firstName}!
         </div>
         <div style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 700 }}>
           Welcome to your personalized dashboard!

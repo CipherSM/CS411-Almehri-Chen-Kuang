@@ -9,7 +9,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import authRoute from "../routes/auth.js";
 import "../config/passport-setup.js";
-import User from "../models/User";
+import User from "../models/Users.js";
 
 dotenv.config({ path: "./src/keys.env" });
 
