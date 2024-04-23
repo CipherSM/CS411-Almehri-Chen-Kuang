@@ -1,0 +1,36 @@
+/* Login.css */
+
+.login-container {
+    height: 100vh; /* Use the full height of the viewport */
+    display: flex; /* Turn on flexbox */
+    flex-direction: column; /* Stack items vertically */
+    justify-content: center; /* Center items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  .title {
+    margin-bottom: 20px; 
+    color: white; 
+    font-size: 3rem;
+    background-color: transparent;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  .login-button {
+    color: white;
+    /* Add additional button styling as desired */
+    /* Example button styling */
+    background-color: transparent; /* Google's brand blue color */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    /* Transition for hover effects */
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-button:hover {
+    background-color: black;
+  }
