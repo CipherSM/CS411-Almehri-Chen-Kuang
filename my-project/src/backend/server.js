@@ -8,8 +8,11 @@ import MongoStore from "connect-mongo";
 import cors from "cors";
 import dotenv from "dotenv";
 import authRoute from "../routes/auth.js";
+import articlesRoute from "../routes/articles.js";
 import "../config/passport-setup.js";
 import User from "../models/Users.js";
+import cron from "node-cron";
+import { executeFetches } from "./generateArticles.js";
 
 dotenv.config({ path: "./src/keys.env" });
 
@@ -30,7 +33,11 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB connected"))
+  .then(() => {
+    console.log("MongoDB connected");
+    // Run executeFetches once immediately after MongoDB connects
+    executeFetches();
+  })
   .catch((err) => console.log(err));
 
 // Configure session middleware with MongoDB storage
@@ -66,6 +73,20 @@ passport.deserializeUser((id, done) => {
 
 // Use the authentication routes
 app.use("/api/auth", authRoute);
+
+// Use the articles routes
+app.use("/api/stories", articlesRoute);
+// Schedule executeFetches to run every day at 2 PM EST
+cron.schedule(
+  "0 18 * * *",
+  () => {
+    executeFetches();
+  },
+  {
+    scheduled: true,
+    timezone: "America/New_York",
+  },
+);
 
 // Start the server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

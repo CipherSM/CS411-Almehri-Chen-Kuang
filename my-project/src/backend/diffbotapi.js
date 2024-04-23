@@ -7,7 +7,11 @@ const apiKey = process.env.DIFFBOTAPI_TOKEN;
 
 async function queryDQL(subject, token = apiKey) {
   const today = new Date();
-  const TodayDate = new Date(today.getTime() - (today.getTimezoneOffset() * 60000)).toISOString().split("T")[0]; // Gets today's date in "YYYY-MM-DD" format
+  const TodayDate = new Date(
+    today.getTime() - today.getTimezoneOffset() * 60000,
+  )
+    .toISOString()
+    .split("T")[0];
 
   const querystring = {
     token: token,

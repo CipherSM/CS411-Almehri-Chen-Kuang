@@ -1,40 +1,40 @@
-// src/backend/generateArticles.js
-import dotenv from "dotenv";
+// generateArticles.js
 import mongoose from "mongoose";
 import { ArticleDB } from "../models/Topics.js";
 import { queryDQL } from "./diffbotapi.js";
-dotenv.config({ path: "./src/keys.env" });
-const mongoUri = process.env.MONGO_URI;
-mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-async function fetchAndSaveArticles(topic, Model) {
+async function fetchAndSaveArticles(topic) {
   try {
     const articles = await queryDQL(topic);
-
     if (articles.length >= 3) {
+      // Prepare data to replace all existing articles for this topic
       const articleData = {
         Topic: topic,
         URL1: articles[0].url,
         Title1: articles[0].title,
         Summary1: articles[0].summary,
-        URL2: articles[2].url,
-        Title2: articles[2].title,
-        Summary2: articles[2].summary,
-        URL3: articles[4].url,
-        Title3: articles[4].title,
-        Summary3: articles[4].summary,
+        URL2: articles[1].url,
+        Title2: articles[1].title,
+        Summary2: articles[1].summary,
+        URL3: articles[2].url,
+        Title3: articles[2].title,
+        Summary3: articles[2].summary,
       };
 
-      const filter = { Title1: articles[0].title }; // Assuming Title1 is unique enough for identification
-      const update = articleData;
-      const options = { new: true, upsert: true }; // Create a new document if one doesn't exist
-
-      const articleEntry = await Model.findOneAndUpdate(
-        filter,
-        update,
-        options,
-      );
-      console.log(`Articles for ${topic} updated or saved successfully.`);
+      // Delete existing and insert new articles atomically using bulk operations
+      const session = await mongoose.startSession();
+      session.startTransaction();
+      try {
+        await ArticleDB.deleteMany({ Topic: topic }, { session });
+        await ArticleDB.insertMany([articleData], { session });
+        await session.commitTransaction();
+        console.log(`Articles for ${topic} replaced successfully.`);
+      } catch (innerError) {
+        await session.abortTransaction();
+        console.error(`Error during transaction for ${topic}:`, innerError);
+      } finally {
+        session.endSession();
+      }
     } else {
       console.log("Not enough articles found for topic:", topic);
     }
@@ -48,16 +48,17 @@ function delay(time) {
 }
 
 async function executeFetches() {
-  await fetchAndSaveArticles("Technology", ArticleDB);
-  await delay(60000);
-  await fetchAndSaveArticles("Business", ArticleDB);
-  await delay(60000);
-  await fetchAndSaveArticles("Environment", ArticleDB);
-  await delay(60000);
-  await fetchAndSaveArticles("Entertainment", ArticleDB);
-  await delay(60000);
-  await fetchAndSaveArticles("Sport", ArticleDB);
-  process.exit();
+  const topics = [
+    "Technology",
+    "Business",
+    "Environment",
+    "Entertainment",
+    "Sport",
+  ];
+  for (const topic of topics) {
+    await fetchAndSaveArticles(topic);
+    await delay(60000); // 60 seconds delay between fetches
+  }
 }
-// start
-executeFetches();
+
+export { executeFetches };
