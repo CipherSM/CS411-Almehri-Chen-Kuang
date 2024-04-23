@@ -1,3 +1,4 @@
+// src/backend/cohereaiapi.js
 import { CohereClient } from "cohere-ai";
 import dotenv from "dotenv";
 dotenv.config({ path: "./src/keys.env" });

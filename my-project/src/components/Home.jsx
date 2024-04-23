@@ -1,4 +1,4 @@
-// Home.jsx
+// src/components/Home.jsx
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import LogoutButton from "./LogoutButton";
@@ -7,7 +7,7 @@ import TimeSection from "./TimeSection";
 import TopStories from "./TopStories";
 import Weather from "./Weather";
 import useWelcomeScreen from "../hooks/useWelcomeScreen";
-import UserPreferences from './UserPreferences';
+import UserPreferences from "./UserPreferences";
 
 const Home = () => {
   const { isAuthenticated, user } = useContext(AuthContext); // Access user here

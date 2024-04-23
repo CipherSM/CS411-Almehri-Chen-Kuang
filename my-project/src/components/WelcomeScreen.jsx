@@ -1,4 +1,4 @@
-// WelcomeScreen.jsx
+// src/components/WelcomeScreen.jsx
 
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";

@@ -1,4 +1,4 @@
-// (the schema for the Topics stored in Mongo DB)
+// src/models/Topics.js
 import mongoose from "mongoose";
 
 const TopicSchema = new mongoose.Schema({
@@ -41,13 +41,6 @@ const TopicSchema = new mongoose.Schema({
   },
 });
 
-
-
 const ArticleDB = mongoose.model("Articles", TopicSchema);
 
-export {
-  ArticleDB 
-};
-
-
-
+export { ArticleDB };

@@ -1,4 +1,4 @@
-// useWelcomeScreen.jsx
+// src/hooks/useWelcomeScreen.jsx
 import { useState, useEffect } from "react";
 
 const useWelcomeScreen = (timeout = 3000) => {

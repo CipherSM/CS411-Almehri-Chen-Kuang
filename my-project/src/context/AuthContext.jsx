@@ -1,4 +1,4 @@
-// AuthContext.jsx (This does the verification and logout)
+// src/context/AuthContext.jsx
 
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";

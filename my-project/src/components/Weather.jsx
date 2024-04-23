@@ -1,4 +1,4 @@
-// Weather.jsx
+// src/components/Weather.jsx
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 

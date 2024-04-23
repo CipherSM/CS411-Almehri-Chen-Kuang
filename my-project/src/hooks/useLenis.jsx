@@ -1,4 +1,4 @@
-// useLenis.jsx
+// src/hooks/useLenis.jsx
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 

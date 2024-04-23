@@ -1,4 +1,4 @@
-// passport-setup.js (boring OAuth stuff from passport.js)
+// src/config/passport-setup.js
 
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
