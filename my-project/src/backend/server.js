@@ -1,4 +1,4 @@
-// server.js
+// src/backend/server.js
 
 import express from "express";
 import mongoose from "mongoose";

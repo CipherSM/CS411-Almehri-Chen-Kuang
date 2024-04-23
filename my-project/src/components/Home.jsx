@@ -7,6 +7,7 @@ import TimeSection from "./TimeSection";
 import TopStories from "./TopStories";
 import Weather from "./Weather";
 import useWelcomeScreen from "../hooks/useWelcomeScreen";
+import UserPreferences from './UserPreferences';
 
 const Home = () => {
   const { isAuthenticated, user } = useContext(AuthContext); // Access user here
