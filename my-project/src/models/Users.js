@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema({
   image: {
     type: String,
   },
+  preferences: 
+    [{
+       type: String 
+      }], //list of strings
 });
 
 const User = mongoose.model("User", userSchema);
