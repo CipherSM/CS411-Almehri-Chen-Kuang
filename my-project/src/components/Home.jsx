@@ -27,42 +27,41 @@ const Home = () => {
     "Sport",
   ];
 
-  return (
-    <div style={{ position: "relative", minHeight: "100vh" }}> {/* Ensure container is relative */}
-      {showWelcome && !welcomeComplete ? (
-        <WelcomeScreen firstName={user?.firstName} onExit={handleWelcomeExit} />
-      ) : (
-        isAuthenticated && (
-          <>
-            <div className="header-area flex items-center" style={{ justifyContent: "space-between", padding: "10px 20px" }}>
-              <TimeSection />
-              <div className="buttons-container flex justify-center space-x-2">
-                {topics.map((topic) => (
-                  <button
-                    key={topic}
-                    onClick={() => setSelectedTopic(topic)}
-                    className={`text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
-                      selectedTopic === topic ? 'bg-black' : 'bg-blue-500 hover:bg-blue-700'
-                    }`}
-                  >
-                    {topic}
-                  </button>
-                ))}
-              </div>
-              <LogoutButton />
+return (
+  <div style={{ position: "relative", minHeight: "100vh" }}> {/* Ensure container is relative */}
+    {showWelcome && !welcomeComplete ? (
+      <WelcomeScreen firstName={user?.firstName} onExit={handleWelcomeExit} />
+    ) : (
+      isAuthenticated && (
+        <>
+          <div className="header-area flex items-center" style={{ justifyContent: "space-between", padding: "10px 20px" }}>
+            <TimeSection />
+            <div className="buttons-container flex justify-center space-x-2">
+              {topics.map((topic) => (
+                <button
+                  key={topic}
+                  onClick={() => setSelectedTopic(topic)}
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                >
+                  {topic}
+                </button>
+              ))}
             </div>
-            <div className="content-area flex">
-              <div className="weather-box">
-                <Weather />
-              </div>
-              <div className="top-stories-container">
-                <TopStories selectedTopic={selectedTopic} />
-              </div>
+            <LogoutButton />
+          </div>
+          <div className="content-area flex">
+            <div className="weather-box">
+              <Weather />
             </div>
-          </>
-        )
-      )}
-    </div>
-  );
+            <div className="top-stories-container">
+              <TopStories selectedTopic={selectedTopic} />
+            </div>
+          </div>
+        </>
+      )
+    )}
+  </div>
+);
+
 };
 export default Home;
