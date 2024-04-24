@@ -88,6 +88,14 @@ body {
 
 /* App.css */
 
+.top-stories-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh; /* Adjust as needed for desired height */
+  }
+  
+
 .story-card {
     background-color: #ffffff;
     padding: 10px;
