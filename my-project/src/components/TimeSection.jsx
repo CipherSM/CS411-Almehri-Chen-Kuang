@@ -24,7 +24,7 @@ function TimeSection() {
       style={{
         padding: "20px",
         marginTop: "50px", // Add margin to the top
-        marginLeft: "150px", // Add margin to the left
+        marginLeft: "10px", // Add margin to the left
         color: "#fff",
         backgroundColor: "rgba(51, 51, 51, 0.5)", // Semi-transparent
         borderRadius: "10px",
