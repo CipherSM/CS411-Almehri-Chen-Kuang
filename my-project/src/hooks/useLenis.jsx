@@ -1,4 +1,6 @@
 // src/hooks/useLenis.jsx
+
+// for smooth scroll
 import { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 

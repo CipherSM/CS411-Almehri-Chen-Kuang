@@ -16,9 +16,8 @@ async function summarizeText(text) {
       temperature: 0.3,
     });
 
-    // If the Cohere SDK wraps the status code or handles errors internally,
-    // you may not need to manually check for HTTP status codes.
-    // Instead, check if the summary property exists.
+    // sometimes cohere just wont return a summary (maybe inappropriate input),
+    // (or < 250 words) heres error checking
     if (response.summary) {
       return response.summary;
     } else {

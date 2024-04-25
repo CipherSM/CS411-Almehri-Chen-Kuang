@@ -1,4 +1,6 @@
 // src/components/Weather.jsx
+
+// template imported from UI verse https://uiverse.io/jamik-dev/chatty-walrus-78
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 

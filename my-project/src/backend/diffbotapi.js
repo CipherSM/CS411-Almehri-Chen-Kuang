@@ -17,7 +17,7 @@ async function queryDQL(subject, token = apiKey) {
     token: token,
     query: `type:Article date:"${TodayDate}" title:"${subject}" language:"en" sortBy:date`,
     format: "json",
-    size: 4, // Retrieve 5 articles
+    size: 4, // Retrieve 4 articles
   };
 
   try {
@@ -30,9 +30,9 @@ async function queryDQL(subject, token = apiKey) {
       for (const articleEntity of data.data) {
         const article = articleEntity.entity;
         if (article && article.text) {
-          // Ensure the text is treated as a string and summarize it
+          // article txt is a string
           const text = String(article.text); // Converts non-string input to string
-          const summary = await summarizeText(text);
+          const summary = await summarizeText(text); // Calls the summarizeText function from cohere api
           articles.push({
             url: article.pageUrl,
             title: article.title,

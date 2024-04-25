@@ -35,7 +35,7 @@ mongoose
   })
   .then(() => {
     console.log("MongoDB connected");
-    // Run executeFetches once immediately after MongoDB connects
+    // Run executeFetches once immediately after MongoDB connects so we have data to display
     executeFetches();
   })
   .catch((err) => console.log(err));

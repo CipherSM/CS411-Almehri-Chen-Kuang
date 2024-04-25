@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 function TopStories({ selectedTopic }) {
-  const [article, setArticle] = useState(null); // Adjust to handle a single object
+  const [article, setArticle] = useState(null);
 
   useEffect(() => {
     if (selectedTopic) {
@@ -12,7 +12,7 @@ function TopStories({ selectedTopic }) {
         .then((response) => response.json())
         .then((data) => {
           console.log("Data fetched:", data);
-          setArticle(data); // Assuming data is a single object, not an array
+          setArticle(data);
         })
         .catch((error) => console.error("Error fetching stories:", error));
     }

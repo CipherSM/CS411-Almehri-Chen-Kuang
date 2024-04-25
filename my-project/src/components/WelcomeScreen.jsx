@@ -1,5 +1,6 @@
 // src/components/WelcomeScreen.jsx
 
+// this provides that cool introduction screen
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 
@@ -8,7 +9,7 @@ function WelcomeScreen({ firstName, onExit }) {
 
   useEffect(() => {
     textAnimationControl.start({
-      scale: 0.95, // Slightly reduce the scale
+      scale: 0.95, // Slightly reduce the scale to give that zoom effect
       opacity: 1,
       transition: { duration: 2 },
     });
