@@ -6,7 +6,7 @@ import { queryDQL } from "./diffbotapi.js";
 async function fetchAndSaveArticles(topic) {
   try {
     const articles = await queryDQL(topic);
-    if (articles.length >= 3) {
+    if (articles.length >= 4) {
       // Prepare data to replace all existing articles for this topic
       const articleData = {
         Topic: topic,
@@ -19,6 +19,9 @@ async function fetchAndSaveArticles(topic) {
         URL3: articles[2].url,
         Title3: articles[2].title,
         Summary3: articles[2].summary,
+        URL4: articles[3].url,
+        Title4: articles[3].title,
+        Summary4: articles[3].summary,
       };
 
       // Delete existing and insert new articles atomically using bulk operations

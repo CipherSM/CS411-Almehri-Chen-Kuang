@@ -17,7 +17,7 @@ async function queryDQL(subject, token = apiKey) {
     token: token,
     query: `type:Article date:"${TodayDate}" title:"${subject}" language:"en" sortBy:date`,
     format: "json",
-    size: 5, // Retrieve 5 articles
+    size: 4, // Retrieve 5 articles
   };
 
   try {

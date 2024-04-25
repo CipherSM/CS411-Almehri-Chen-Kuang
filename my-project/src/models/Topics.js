@@ -39,6 +39,17 @@ const TopicSchema = new mongoose.Schema({
   Summary3: {
     type: String,
   },
+  URL4: {
+    type: String,
+    required: true,
+  },
+  Title4: {
+    type: String,
+    required: true,
+  },
+  Summary4: {
+    type: String,
+  },
 });
 
 const ArticleDB = mongoose.model("Articles", TopicSchema);

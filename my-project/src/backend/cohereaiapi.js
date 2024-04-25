@@ -10,7 +10,7 @@ async function summarizeText(text) {
   try {
     const response = await cohere.summarize({
       text: text,
-      length: "medium",
+      length: "long",
       format: "paragraph",
       model: "summarize-xlarge",
       temperature: 0.3,
